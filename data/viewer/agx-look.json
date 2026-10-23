@@ -1,0 +1,44 @@
+{
+  "name": "AgX - Medium High Contrast",
+  "processSpace": "AgX Log",
+  "slope": 1.2000000178813934,
+  "offset": -0.08000001311302185,
+  "blenderLogRangeStops": 25,
+  "threeLogRangeStops": 16.5,
+  "ocioVersion": "2.5.2",
+  "configSha256": "df5714c85d5afb5e9762281503a0c48a9f65dadb22d32a3aee50c454a0821f62",
+  "validationSamples": 1001,
+  "maximumAffineError": 1.2648105607304672e-07,
+  "referenceSamples": [
+    {
+      "input": 0.0,
+      "output": -0.08000001311302185
+    },
+    {
+      "input": 0.1,
+      "output": 0.03999999165534973
+    },
+    {
+      "input": 0.25,
+      "output": 0.2199999988079071
+    },
+    {
+      "input": 0.4,
+      "output": 0.4000000059604645
+    },
+    {
+      "input": 0.5,
+      "output": 0.5199999809265137
+    },
+    {
+      "input": 0.75,
+      "output": 0.8200000524520874
+    },
+    {
+      "input": 1.0,
+      "output": 1.1200000047683716
+    }
+  ],
+  "scope": "Exact affine look in AgX Log; Three.js retains its approximate base AgX tone curve.",
+  "documentation": "https://opencolorio.readthedocs.io/en/v2.4.2/api/grading_transforms.html"
+}

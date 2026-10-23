@@ -1,0 +1,42 @@
+{
+  "name": "meijo-tempaku-3d-viewer",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "npm run validate",
+    "build": "node scripts/build_site_release.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "snapshot:manifest": "node scripts/write_snapshot_manifest.mjs",
+    "typecheck": "tsc --noEmit",
+    "validate": "node scripts/validate_viewer_v3.mjs",
+    "test": "npm run typecheck && node --test tests/viewer-navigation.test.mjs tests/viewer-render.test.mjs tests/viewer-physics.test.mjs tests/viewer-capabilities.test.mjs tests/viewer-walking-lifecycle.test.mjs && npm run validate && npm run viewer:walk:validate",
+    "deploy": "wrangler deploy",
+    "viewer:walk:validate": "node scripts/audit_viewer_walking.mjs"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "0.20.0",
+    "camera-controls": "3.1.2",
+    "meshoptimizer": "1.2.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "4.5.0",
+    "@gltf-transform/extensions": "4.5.0",
+    "@gltf-transform/functions": "4.5.0",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@types/three": "0.185.4",
+    "@vitejs/plugin-react": "6.0.2",
+    "typescript": "5.9.3",
+    "vite": "8.0.13",
+    "wrangler": "4.92.0"
+  }
+}

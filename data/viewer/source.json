@@ -1,0 +1,13 @@
+{
+  "blend": "model/tempaku-campus-building10-north-v1.blend",
+  "blender": ".tooling/apps/blender-5.2.0-windows-x64/blender.exe",
+  "includeInteriors": false,
+  "faithful": true,
+  "bakeDaylight": true,
+  "daylightScope": "outdoor",
+  "generateLOD": false,
+  "reuseOutdoorBakeScene": true,
+  "lightmapMode": "diffuse-direct-indirect-sun",
+  "lightingAtlasSizes": {"full": 2048, "balanced": 1024, "low": 512},
+  "lightingReferenceSignature": "06b4ab62d161d83ae6cf7dba7ab6ec248846f8591ccc671303e06bef3ba8fb9b"
+}

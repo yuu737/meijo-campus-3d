@@ -1,0 +1,9 @@
+[
+  {"id":"pilot-b11","label":"11号館の白壁","position":[58,53,161],"target":[8,29,128]},
+  {"id":"pilot-pergola","label":"パーゴラ床","position":[-18,38,-10],"target":[-9,30.15,6]},
+  {"id":"pilot-road8","label":"8号館前・階段上端","position":[138,65,119],"target":[89,23,74]},
+  {"id":"pilot-windows","label":"タワーの窓","position":[60,60,85],"target":[18,55,38]},
+  {"id":"pilot-plants","label":"道路沿いの植栽","position":[82,25.5,99],"target":[86,22.8,84]},
+  {"id":"pilot-shrubs","label":"植木鉢の低木・近景","position":[95,18,107],"target":[92,15.8,97]},
+  {"id":"pilot-b10-north","label":"10号館北側・広場","position":[29.84777,29.6,-48.42556],"target":[42.66535,34,-12.06679]}
+]

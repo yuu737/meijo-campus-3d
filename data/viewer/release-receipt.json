@@ -1,0 +1,26 @@
+{
+  "schema": "tempaku-release-receipt-1",
+  "release": "2a5ba07e959f2b45d535",
+  "revision": "名城_公開用_R_20261020",
+  "sourceModelSha256": "6fac4bdb8d5f622d2b398ff3bc7bab2d945026b065cf09b341b318f0bc4fc9fc",
+  "manifestSha256": "6b41337e56abf8f53c351804edf243f91bc52dfebede2c55203879dfdcdb89d7",
+  "assetListSha256": "63a9bdb62c39fb8e76314a392b4e541c453e47406114a3be6178a82771cfa3b2",
+  "assets": 1924,
+  "uniqueAssetBytes": 5171197132,
+  "validation": "passed",
+  "walkingAudit": {
+    "schema": "tempaku-walking-audit-1",
+    "release": "2a5ba07e959f2b45d535",
+    "sourceModelSha256": "6fac4bdb8d5f622d2b398ff3bc7bab2d945026b065cf09b341b318f0bc4fc9fc",
+    "manifestSha256": "6b41337e56abf8f53c351804edf243f91bc52dfebede2c55203879dfdcdb89d7",
+    "codeSha256": "9960fe41b30b45c4025dd764a81307f1b94355327db724f8c3eaf56e0f0dcca3",
+    "pass": true,
+    "destinationsPassed": 9,
+    "destinationsTotal": 9,
+    "routesPassed": 72,
+    "routesTotal": 72,
+    "method": "Authored collision triangles; shipped Rapier capsule; destination clearance and gravity settle; bidirectional paths at 3.2 m/s (60 Hz), 8.32 m/s (30 Hz) and maximum sprint 13 m/s (15 Hz).",
+    "limitation": "Recorded paths only. Real device performance and unrecorded ground are not certified."
+  },
+  "generatedAt": "2026-10-21T14:35:09.709Z"
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "meijo-campus",
+  "compatibility_date": "2026-09-10",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": { "directory": "./dist", "html_handling": "auto-trailing-slash", "not_found_handling": "none" }
+}

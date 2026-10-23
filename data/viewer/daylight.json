@@ -1,0 +1,17 @@
+{
+  "id": "daylight-r158-v1",
+  "description": "Fixed soft daylight with visible shaded detail; artistic reference, not a measured lighting survey.",
+  "sunDirection": [-0.38411064, 0.76822128, 0.51214752],
+  "sunColor": [1.0, 0.894, 0.723],
+  "sunIntensity": 2.4,
+  "sunAngleDegrees": 1.0,
+  "skyZenith": [0.18, 0.38, 0.72],
+  "skyHorizon": [0.64, 0.73, 0.84],
+  "groundBounce": [0.17, 0.15, 0.12],
+  "skyIntensity": 1.8,
+  "exposure": 1.25,
+  "lightmapSamples": 64,
+  "lightmapSize": 1024,
+  "lightmapMargin": 8,
+  "neighborRadiusM": 100
+}

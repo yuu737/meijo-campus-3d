@@ -1,0 +1,66 @@
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#fff;color:#202b38}
+html{scroll-behavior:smooth;scroll-padding-top:28px}
+body{font-family:"Noto Sans JP","Yu Gothic",Meiryo,system-ui,sans-serif;line-height:1.9}
+button,input,select{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
+a{color:#0757aa;text-underline-offset:5px}
+a:focus-visible,button:focus-visible{outline:3px solid #50a9f3;outline-offset:5px}
+[hidden]{display:none!important}
+.intro{--intro-blue:#0757aa;--intro-ink:#202b38;--intro-muted:#596674;min-height:100dvh}
+.intro-header{min-height:82px;padding:16px max(28px,calc((100% - 1480px)/2));display:flex;align-items:center;gap:32px;background:var(--intro-blue);color:white}
+.intro-brand{display:inline-flex;align-items:center;gap:15px;text-decoration:none;color:inherit;flex-shrink:0}
+.intro-brand img{display:block;border-radius:4px}
+.intro-brand strong{display:block;font-size:20px;line-height:1.5;letter-spacing:.05em;font-weight:700}
+.intro-brand small{display:block;font-size:12px;line-height:1.5;letter-spacing:.13em}
+.intro-nav{display:flex;flex-wrap:wrap;align-self:stretch;align-items:center;justify-content:flex-end;gap:12px 24px;margin-left:auto}
+.intro-nav a{font-size:15px;font-weight:600;color:white;text-decoration:none;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent}
+.intro-nav a:hover{border-bottom-color:white}
+.intro-tag{font-size:12px;letter-spacing:.06em;white-space:nowrap;border-left:1px solid #ffffff75;padding-left:24px}
+.intro-content{width:min(1216px,calc(100% - 80px));margin:0 auto;padding:60px 0 72px}
+.intro-heading{padding:1px 0 3px 30px;border-left:5px solid var(--intro-blue);margin-bottom:44px}
+.intro-kicker{font-size:13px;font-weight:600;letter-spacing:.17em;color:var(--intro-blue);margin:0 0 8px}
+.intro h1{font-size:clamp(28px,2.7vw,40px);line-height:1.55;letter-spacing:.05em;font-weight:500;color:var(--intro-blue);margin:0}
+.intro-body{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+.intro-description{font-size:17px;line-height:2.05;margin:0 0 22px;overflow-wrap:anywhere}
+.intro-action{margin-top:30px;max-width:320px}
+.intro-start{display:flex;align-items:center;justify-content:space-between;gap:30px;border:1px solid var(--intro-blue);border-radius:2px;background:var(--intro-blue);color:white;width:100%;min-height:64px;padding:16px 24px;font-size:17px;font-weight:600;letter-spacing:.04em;transition:background .15s}
+.intro-start:hover{background:#003e82}
+.intro-start:disabled{opacity:.65;cursor:wait}
+.intro-start span:last-child{font-size:24px;font-weight:400;line-height:1}
+.intro-action p{font-size:13px;color:var(--intro-muted);margin:10px 0 0}
+#start-error{color:#a22036;font-size:14px}
+#start-error:empty{display:none}
+.intro-hero{margin:0;min-width:0}
+.intro-hero img{display:block;width:100%;height:auto;background:#eef2f6}
+.intro-hero figcaption{font-size:12px;color:var(--intro-muted);text-align:right;margin-top:9px}
+.intro-details{margin-top:72px;padding-top:36px;border-top:1px solid #d9e1e9}
+.intro-details h2{margin:0 0 32px;padding-left:18px;border-left:3px solid var(--intro-blue);color:var(--intro-blue);font-size:22px;line-height:1.55;font-weight:500;letter-spacing:.035em}
+.intro-buildings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+.intro-building h3{color:var(--intro-blue);font-size:17px;font-weight:600;margin:0 0 12px;line-height:1.8}
+.intro-building p{font-size:15px;color:var(--intro-muted);margin:0;line-height:2}
+.intro-footer{background:#f6f8fb;border-top:1px solid #e4eaf0;padding:30px 40px 34px}
+.intro-footer>div{max-width:1216px;margin:auto;display:flex;align-items:flex-start;gap:48px;justify-content:space-between}
+.intro-footer p{max-width:720px;font-size:13px;line-height:1.9;color:var(--intro-muted);margin:0}
+.intro-footer nav{display:flex;flex-direction:column;gap:8px;flex-shrink:0;font-size:13px}
+#root{position:fixed;inset:0;overflow:hidden}
+.intro-faq details{border-bottom:1px solid #d9e1e9;padding:18px 0}
+.intro-faq summary{cursor:pointer;font-weight:600;color:var(--intro-blue)}
+.intro-faq p{margin:12px 0 0;max-width:80ch}
+.guide-content{max-width:900px}
+.guide-breadcrumb{font-size:14px;margin:0 0 32px;overflow-wrap:anywhere}
+.guide-lead{font-size:18px;line-height:2;margin:0 0 40px}
+.guide-content section{margin:42px 0}
+.guide-content section h2{font-size:24px;color:var(--intro-blue);line-height:1.6;border-bottom:1px solid #d9e1e9;padding-bottom:12px}
+.guide-content h3{font-size:20px;line-height:1.6;margin-top:30px;color:var(--intro-blue)}
+.guide-content p,.guide-content li,.guide-content dd{overflow-wrap:anywhere}
+.guide-content li{margin:12px 0}
+.guide-content dt{font-weight:600;margin-top:18px}
+.guide-content dd{margin:4px 0 0}
+.guide-start{max-width:400px;text-decoration:none}
+.guide-updated{font-size:13px;color:var(--intro-muted);margin-top:40px}
+@media(max-width:1100px){.intro-header{flex-wrap:wrap;gap:12px 24px;padding:15px 28px}.intro-nav{order:3;width:100%;justify-content:flex-start;gap:28px;margin:4px 0 0}.intro-tag{margin-left:auto}.intro-body{gap:36px}.intro-desktop-break{display:none}.intro-description{font-size:16px}}
+@media(max-width:760px){.intro-content{width:calc(100% - 40px);padding:38px 0 46px}.intro-header{padding:14px 20px}.intro-brand{gap:10px}.intro-brand img{width:36px;height:36px}.intro-brand strong{font-size:16px}.intro-brand small{font-size:12px;letter-spacing:.08em}.intro-tag{padding-left:12px;font-size:12px}.intro-nav{gap:24px}.intro-nav a{font-size:14px}.intro-heading{padding-left:20px;margin-bottom:30px}.intro-kicker{font-size:12px}.intro h1{font-size:29px;line-height:1.6}.intro-body{grid-template-columns:1fr;gap:30px}.intro-action{max-width:none;margin-top:24px}.intro-start{min-height:60px}.intro-description{line-height:2;margin-bottom:16px}.intro-hero figcaption{font-size:12px}.intro-details{margin-top:42px;padding-top:30px}.intro-details h2{font-size:20px;margin-bottom:28px}.intro-buildings{grid-template-columns:1fr;gap:28px}.intro-building h3{margin-bottom:6px}.intro-footer{padding:24px 20px 30px}.intro-footer>div{display:block}.intro-footer nav{flex-wrap:wrap;flex-direction:row;gap:14px 24px;margin-top:18px}}
+@media(max-width:390px){.intro-header{gap:10px}.intro-tag{border:0;padding:0}.intro-brand strong{font-size:15px}.intro-brand img{width:32px;height:32px}.intro-nav{gap:18px;flex-wrap:wrap}.intro h1{font-size:26px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.intro-start{transition:none}}

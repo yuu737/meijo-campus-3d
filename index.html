@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0757aa" />
+    <meta name="description" content="名城大学天白キャンパスの3Dモデルをブラウザーで見て歩く非公式キャンパスマップ。タワー75・附属図書館・ライオンズアリーナなどを、PCやスマホで俯瞰・バーチャル散策できます。" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="名城大学の3Dモデル｜天白キャンパス3Dマップ・非公式" />
+    <meta property="og:site_name" content="名城大学3Dモデル・天白キャンパスマップ（非公式）" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:description" content="名城大学の3Dモデルで天白キャンパスをバーチャル散策。タワー75、図書館、ライオンズアリーナをPC・スマホで見て歩ける非公式マップ。" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="名城大学の3Dモデル｜天白キャンパス3Dマップ・非公式" />
+    <meta name="twitter:description" content="建物・道路・階段を自由に探索できる、PC・スマートフォン対応の非公式3Dマップ。" />
+    <link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png" />
+    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>名城大学の3Dモデル｜天白キャンパス3Dマップ・非公式</title>
+    <link rel="stylesheet" href="/app/viewer/landing.css" />
+  </head>
+  <body>
+    <main id="campus-introduction" class="intro">
+      <header class="intro-header">
+        <a class="intro-brand" href="#campus-introduction"><img src="/favicon.svg" alt="" width="44" height="44" /><span><strong>名城大学 天白キャンパス</strong><small>TEMPAKU CAMPUS / 3D</small></span></a>
+        <nav class="intro-nav" aria-label="ページ内の案内"><a href="#explore">3Dマップ</a><a href="/campus-guide/">建物案内</a><a href="/how-to-use/">使い方</a><a href="/about-model/">制作について</a></nav>
+        <span class="intro-tag">非公式 · 制作中</span>
+      </header>
+      <div class="intro-content">
+        <section id="explore" class="intro-overview" aria-labelledby="intro-heading">
+          <div class="intro-heading"><p class="intro-kicker">TEMPAKU CAMPUS MAP</p><h1 id="intro-heading">名城大学の3Dモデル。<br>天白キャンパスを見て歩く。</h1></div>
+          <div class="intro-body">
+            <div class="intro-copy"><p class="intro-description">タワー75、附属図書館、ライオンズアリーナ。<br class="intro-desktop-break">名城大学の天白キャンパスを、自由な視点で探索できる非公式の3Dモデル・キャンパスマップです。</p><p class="intro-description">キャンパス全体を俯瞰したり、道路や階段に沿って歩いたり。写真や公開資料をもとにBlenderで制作したモデルを、ブラウザーでバーチャル散策できます。</p>
+              <div class="intro-action"><button id="start-3d" class="intro-start" type="button"><span>3Dモデルを開く</span><span aria-hidden="true">↗</span></button><p>PC・スマートフォン対応</p><p id="start-error" role="status"></p><noscript><p>3Dの操作にはJavaScriptが必要です。画像と建物情報はこのまま閲覧できます。</p></noscript></div>
+            </div>
+            <figure class="intro-hero"><img src="/campus-preview.webp" width="1600" height="862" alt="名城大学天白キャンパスの3Dモデル。タワー75前の広場からタワー75を見上げた画像。" fetchpriority="high" /><figcaption>制作中の3Dモデル</figcaption></figure>
+          </div>
+        </section>
+        <section class="intro-details" aria-labelledby="building-heading"><h2 id="building-heading">モデルで見られる主な建物</h2><div class="intro-buildings">
+        <article class="intro-building"><h3><a href="/campus-guide/#tower75">タワー75</a></h3><p>キャンパスの中心に立つ高層棟。足元の広場や周辺建物とのつながりを確認できます。</p></article>
+        <article class="intro-building"><h3><a href="/campus-guide/#library">附属図書館</a></h3><p>図書館の外観と周囲の歩道・階段を制作しています。入口付近の高さ関係も更新中です。</p></article>
+        <article class="intro-building"><h3><a href="/campus-guide/#arena">ライオンズアリーナ（LIONS ARENA）</a></h3><p>アリーナの外観、看板、周囲の広場を制作しています。共通講義棟や周辺の道路も、地上と俯瞰の両方から探索できます。</p></article>
+        </div></section>
+
+        <section class="intro-details" aria-labelledby="model-guide-heading"><h2 id="model-guide-heading">3Dモデルでできること</h2><div class="intro-buildings">
+          <article class="intro-building"><h3><a href="/campus-guide/">キャンパスの建物と位置関係を見る</a></h3><p>高い建物、広場、道路、階段を俯瞰と地上の両方から探索。平面の地図ではわかりにくいキャンパスの高低差も眺められます。</p></article>
+          <article class="intro-building"><h3><a href="/how-to-use/">PC・スマホでキャンパスを歩く</a></h3><p>歩行、自由移動、俯瞰を切り替えてバーチャル散策。移動先の選び方、手動の画質設定、表示できないときの操作を紹介します。</p></article>
+          <article class="intro-building"><h3><a href="/about-model/">Blenderモデルの制作について</a></h3><p>写真や公開資料を参考に制作した名城大学の3Dモデルです。再現範囲、Webでの表示、継続更新の方針をまとめています。</p></article>
+        </div></section>
+        <section class="intro-details intro-faq" aria-labelledby="faq-heading"><h2 id="faq-heading">よくある質問</h2>
+          <details><summary>名城大学の公式3Dモデルですか？</summary><p>大学公式のサービスではありません。天白キャンパスの屋外を再現する非公式の制作中モデルです。現地と異なる箇所や推定を含みます。施設利用やアクセスは大学公式サイトでご確認ください。</p></details>
+          <details><summary>スマートフォンでも3Dモデルを見られますか？</summary><p>WebGL 2に対応したブラウザーで閲覧できます。最初は軽量で始まり、画質は手動で選べます。端末の性能によっては動作が重くなることがあります。<a href="/how-to-use/">スマホ・PCの操作ガイド</a>をご覧ください。</p></details>
+          <details><summary>キャンパスのどの部分を見られますか？</summary><p>タワー75、附属図書館、ライオンズアリーナ、共通講義棟などの外観と、道路・階段・広場・植栽を表示しています。室内や教室の詳細は公開していません。<a href="/campus-guide/">建物案内</a>から代表的な場所を開けます。</p></details>
+        </section>
+      </div>
+      <footer class="intro-footer" id="about"><div><p>非公式 名城大学天白キャンパス 3Dプロトタイプ。大学公式の案内ではありません。未確認・推定による形状を含みます。再現資料：2026年9月の写真ほか。</p><nav aria-label="関連リンク"><a href="https://www.meijo-u.ac.jp/about/campus/tempaku.html" target="_blank" rel="noreferrer">大学公式のキャンパス案内</a><a href="/credits.txt" target="_blank" rel="noreferrer">素材・ライセンス</a></nav></div></footer>
+    </main>
+    <div id="root" hidden></div>
+    <script type="module" src="/app/viewer/main-v2.tsx"></script>
+  </body>
+</html>

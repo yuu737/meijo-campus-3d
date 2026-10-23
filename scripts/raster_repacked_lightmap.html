@@ -1,0 +1,35 @@
+<!doctype html><meta charset="utf-8"><title>Native lightmap chart reprojection</title><canvas></canvas>
+<script>
+window.run=async spec=>{
+const started=performance.now(),canvas=document.querySelector('canvas');canvas.width=canvas.height=1;
+const gl=canvas.getContext('webgl2',{antialias:false,alpha:false,powerPreference:'low-power'});if(!gl)throw Error('WebGL2 unavailable');
+const debug=gl.getExtension('WEBGL_debug_renderer_info'),gpu=debug?gl.getParameter(debug.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER);
+console.log('REPACK_CONTEXT',gpu);
+if(!gl.getExtension('EXT_color_buffer_float'))throw Error('Float render targets unavailable');
+const shader=(type,source)=>{const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;};
+const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,`#version 300 es
+in vec2 newUv;in vec2 sourceUv;out vec2 originalUv;void main(){originalUv=sourceUv;gl_Position=vec4(newUv*2.-1.,0.,1.);}`));
+gl.attachShader(program,shader(gl.FRAGMENT_SHADER,`#version 300 es
+precision highp float;uniform sampler2D light;in vec2 originalUv;out vec4 result;void main(){result=vec4(texture(light,originalUv).rgb,1.);}`));
+gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
+const data=await(await fetch('/geometry.bin')).arrayBuffer();const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);
+console.log('REPACK_GEOMETRY',data.byteLength);
+for(const [name,offset]of[['newUv',0],['sourceUv',8]]){const location=gl.getAttribLocation(program,name);gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,2,gl.FLOAT,false,16,offset);}
+const bitmap=await createImageBitmap(await(await fetch('/source.png')).blob(),{colorSpaceConversion:'none',premultiplyAlpha:'none'});const source=gl.createTexture();gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,source);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.texImage2D(gl.TEXTURE_2D,0,gl.SRGB8_ALPHA8,gl.RGBA,gl.UNSIGNED_BYTE,bitmap);bitmap.close();
+for(const name of [gl.TEXTURE_MIN_FILTER,gl.TEXTURE_MAG_FILTER])gl.texParameteri(gl.TEXTURE_2D,name,gl.LINEAR);for(const name of [gl.TEXTURE_WRAP_S,gl.TEXTURE_WRAP_T])gl.texParameteri(gl.TEXTURE_2D,name,gl.CLAMP_TO_EDGE);gl.uniform1i(gl.getUniformLocation(program,'light'),0);
+console.log('REPACK_SOURCE_TEXTURE');
+const [width,height]=spec.resolution;const target=gl.createTexture();gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,target);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA32F,width,height,0,gl.RGBA,gl.FLOAT,null);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+const framebuffer=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffer);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,target,0);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw Error('Incomplete float framebuffer');
+gl.viewport(0,0,width,height);gl.disable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);gl.disable(gl.BLEND);gl.disable(gl.DITHER);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+for(const range of spec.ranges)if(range.lit)gl.drawArrays(gl.TRIANGLES,range.start,range.count);
+// Read back and upload in row bands: one full float copy of a large atlas can exhaust the renderer.
+const band=Math.max(1,Math.floor(64*1024*1024/(width*16)));let bytes=0;
+for(let y=0;y<height;y+=band){
+ const rows=Math.min(band,height-y),pixels=new Float32Array(width*rows*4);gl.readPixels(0,y,width,rows,gl.RGBA,gl.FLOAT,pixels);const error=gl.getError();if(error!==gl.NO_ERROR)throw Error('WebGL error '+error);
+ const part=await fetch('/part',{method:'POST',headers:{'X-Offset':String(y*width*16)},body:pixels.buffer});if(!part.ok)throw Error('Projection upload failed');bytes+=pixels.byteLength;
+}
+console.log('REPACK_PIXELS',bytes);
+const stats={seconds:(performance.now()-started)/1000,width,height,gpu,bytes};
+const response=await fetch('/result',{method:'POST',headers:{'X-Raster-Stats':JSON.stringify(stats)}});if(!response.ok)throw Error('Projection upload failed');return stats;
+};
+</script>

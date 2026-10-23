@@ -1,0 +1,9 @@
+node_modules/
+dist/
+outputs/
+.env*
+*.log
+.DS_Store
+
+# Model and lighting data are deployed directly to Cloudflare (wrangler deploy); keep them out of Git (2026-10-21).
+web-public/viewer/assets/
