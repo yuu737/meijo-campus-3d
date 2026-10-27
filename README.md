@@ -92,4 +92,4 @@ node --test tests/*.test.mjs   # 70テスト
 
 ## 作者
 
-kou（名城大学 情報学部 2年）。Kaggleでのエージェントの使い方は [kaggle-competitions](https://github.com/yuu737/kaggle-competitions) を参照してください。
+kou（名城大学 情報工学部 2年）。Kaggleでのエージェントの使い方は [kaggle-competitions](https://github.com/yuu737/kaggle-competitions) を参照してください。
