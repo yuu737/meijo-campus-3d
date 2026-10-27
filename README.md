@@ -8,6 +8,8 @@
 
 **▶ 公開サイト: https://meijo-3d-unofficial.yuustudio.app/** （PC・スマートフォン対応）
 
+https://github.com/user-attachments/assets/7a20d3ad-06dc-4e5c-a512-6dee352846a6
+
 ![タワー75前の広場から見上げた3Dモデル](docs/images/campus-og.jpg)
 
 ![キャンパス全景](docs/images/r154-overview.webp)
