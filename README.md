@@ -1,6 +1,6 @@
 # 名城大学 天白キャンパス 3D（非公式）
 
-> A walkable, browser-based 3D model of Meijo University's Tempaku campus, rebuilt from about 1,500 on-site photos. A 1.7 GB, 21.6M-triangle Blender scene is split into 212 chunks with baked Cycles lightmaps, KTX2/Meshopt compression and a per-device memory budget, plus a separate Rapier collision mesh for walking. Built solo by directing AI coding agents; current work runs on Claude Code. Live: https://meijo-3d-unofficial.yuustudio.app/
+> A walkable, browser-based 3D model of Meijo University's Tempaku campus, rebuilt from about 1,500 on-site photos. A 1.7 GB, 21.6M-triangle Blender scene is split into 229 chunks with baked Cycles lightmaps, shared real-time-lit vegetation, KTX2/Meshopt compression and a per-device memory budget, plus a separate Rapier collision mesh for walking. Built solo by directing AI coding agents; current work runs on Claude Code. Live: https://meijo-3d-unofficial.yuustudio.app/
 
 **1.7GBのBlenderモデルを、スマートフォンのブラウザでも歩けるWeb 3Dにした個人制作です。**
 
@@ -20,10 +20,11 @@ https://github.com/user-attachments/assets/7a20d3ad-06dc-4e5c-a512-6dee352846a6
 | --- | --- |
 | 元のBlenderモデル | 約1.7GB、6,962オブジェクト、約2,160万ポリゴン |
 | 参照した現地写真 | 約1,500枚 |
-| Web配信 | 212区画に分割、821ファイル（1ファイル25MiB未満） |
-| 光の事前計算 | 138区画にCyclesで昼光をベイク、スマホ向けに軽量版も生成 |
+| Web配信 | 229区画に分割、1,895ファイル（全画質の合計、1ファイル25MiB未満）。標準画質で全区画を読んで約672MB |
+| 光の事前計算 | 131区画にCyclesで昼光をベイク、スマホ向けに軽量版も生成 |
 | 歩行用の衝突判定 | 表示用とは別の軽量形状、45m四方×84タイル、約311万ポリゴン |
 | 樹木 | 271本、3段階の詳細度（LOD） |
+| 低木・生け垣・下草 | 約2,180物体を共有形状と実時間の照明で表示 |
 | 制作期間 | 2026年8月〜（継続中） |
 
 ## 技術的なポイント：重いモデルをスマホで動かす
@@ -33,7 +34,7 @@ https://github.com/user-attachments/assets/7a20d3ad-06dc-4e5c-a512-6dee352846a6
 ```mermaid
 flowchart LR
   A[現地写真 約1,500枚] --> B[Blenderで再現<br/>1.7GB / 2,160万ポリゴン]
-  B --> C[区画ごとに書き出し<br/>212区画]
+  B --> C[区画ごとに書き出し<br/>229区画]
   C --> D[照明用UVを再展開<br/>xatlas]
   D --> E[Cyclesで昼光をベイク]
   E --> F[KTX2 + Meshopt圧縮<br/>画質別に生成]
@@ -44,11 +45,30 @@ flowchart LR
 ```
 
 - **光の事前計算（ライトマップ）**: リアルタイムでは重い大域照明を、Blender Cyclesであらかじめ計算しテクスチャに焼き込みます。表面の模様用UVと照明用UVを分け、照明側は [xatlas](https://github.com/jpcy/xatlas) で詰め直して解像度を確保しています（[`scripts/repack_lightmap_uv.py`](scripts/repack_lightmap_uv.py)、[`docs/LIGHTING.md`](docs/LIGHTING.md)）。スマホでも、影を毎フレーム計算せずに陰影のある見た目になります。
-- **区画分割と画質別の配信**: 建物・外構を212区画に分け、KTX2（GPU向けテクスチャ圧縮）とMeshopt（形状圧縮）で配信します。照明データは「軽量／標準／精細」を別々に生成し、端末に合う画質を選べます（[`app/viewer/quality.ts`](app/viewer/quality.ts)）。
+- **区画分割と画質別の配信**: 建物・外構を229区画に分け、KTX2（GPU向けテクスチャ圧縮）とMeshopt（形状圧縮）で配信します。照明データは「軽量／標準／精細」を別々に生成し、端末に合う画質を選べます（[`app/viewer/quality.ts`](app/viewer/quality.ts)）。
 - **端末に合わせたメモリ上限**: ブラウザが報告するメモリ量・CPUコア数・GPU名・タッチ操作の有無から、最初に保持するモデル量を140MB〜2GBで自動判定します。利用者は設定で変更できます（[`app/viewer/memory-budget.ts`](app/viewer/memory-budget.ts)）。
 - **見えない区画は読まない**: 視点と遮蔽をもとに読み込む区画を選びます（[`app/viewer/occlusion-streaming.ts`](app/viewer/occlusion-streaming.ts)、[`lod-policy.ts`](app/viewer/lod-policy.ts)）。
 - **歩行と物理**: 表示用モデルとは別の軽量な衝突形状を、物理エンジン [Rapier](https://rapier.rs/) でWeb Workerから読み込みます。重力・ジャンプ・階段・壁の判定があり、画質や読み込み状況に関係なく同じ床を歩けます（[`app/viewer/rapier-walk.ts`](app/viewer/rapier-walk.ts)、[`collider-worker.ts`](app/viewer/collider-worker.ts)）。
 - **壊れにくさ**: GPUが切断されたときの再試行、通信失敗からの再読み込み、直近の安全な床への復帰、新しいモデルを公開したときの更新通知に対応しています。
+
+## 軽量化：配信量を約1.27GB→約672MBに
+
+標準画質で全区画を読み込んだときの量を、見た目を変えない方法だけで減らしています。目標は、最初の表示10〜20MB、キャンパス全体の見渡し50〜80MB、歩き回り150〜300MBです。
+
+| 時期 | やったこと | 配信量 |
+| --- | --- | --- |
+| 2026-10-26 | 形状データをgzipで圧縮（展開後の中身は元と同一）。ライトマップをUASTC RDOで圧縮（KTX2、zstd） | 約1.6GB → 約1.27GB |
+| 2026-10-29 | 地面に焼き込んでいた植物を共有形状と実時間の照明に移した | 約1.27GB → 約672MB |
+
+- **焼き込まれた植物を共有形状に**: 地面区画に焼き込まれていた樹木・低木の葉だけで、配信量の約35%（約440MB）を占めていました。形は約140種類しかないため、同じ形を使い回す共有形状にし、照明はリアルタイムで計算します。地面のライトマップは焼き直さず、既存の焼き込みから植物の部分だけを除いて詰め直しました（木が地面に落とす影は残ります）。名前では拾えなかった生け垣・下草も、材質の種類から洗い出して対象に加えました。
+- **葉の映り込みの調整**: ブラウザの環境反射は周りの葉に遮られないため、葉が空の色を映して灰青色に見えていました。共有形状の植物は反射を弱め、Blenderの見た目に近づけています。
+- **公開前の検査**: 植物を除いた区画の物体数、ライトマップの出どころ、画質別の照明の対応が元のモデルと一致することを検査してから公開しています。
+
+### これから
+
+- **遠景用の軽い形状（LOD）**: 遠くの建物・地面を、精細な形状から光と色を写し取った軽い形状に切り替えます。全131区画の試作では、全部を遠景用にした場合の合計が約230MB（植物の共有化の前の測定）。輪郭・開口・接続・陰影のずれを区画ごとに検査した証明がないと表示しない仕組み（[`lod-policy.ts`](app/viewer/lod-policy.ts)）に合わせて、証明を作る道具を準備しています。
+- **ライトマップの余白**: ライトマップのうち表面に使われている画素は約25%で、残りは部品の間の余白です。並べ方を見直して減らします。
+- 頂点座標の量子化は、ミリ単位で重なる外壁の層が潰れるため使いません。
 
 ## 品質の確認
 
